@@ -1,4 +1,5 @@
 import { answerCourseQuestion } from "@/lib/course-knowledge";
+import { isRestrictedRequest, RESTRICTED_REQUEST_ANSWER } from "@/lib/restricted-requests";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -24,6 +25,10 @@ export async function POST(request: Request) {
       { answer: "Please shorten your question to 2,000 characters or fewer." },
       { status: 400 },
     );
+  }
+
+  if (isRestrictedRequest(body.question)) {
+    return Response.json({ answer: RESTRICTED_REQUEST_ANSWER, source: null });
   }
 
   return Response.json(answerCourseQuestion(body.question));

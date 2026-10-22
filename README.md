@@ -36,7 +36,7 @@ Scope: the current local demo only. This is not a production security review; ab
 | SEC-017 | Fully for current answers | Answers are rendered as React text; the app does not interpret answer HTML, scripts, images, or links. |
 | SEC-018 | Not at all | Weekly summaries and their anonymization rules are not implemented. |
 | SEC-019 | Not at all | Answer reporting and anonymous report storage are not implemented. |
-| SEC-020 | Partly | No private graded items or system instructions are loaded, but there is no explicit refusal logic or injection evaluation. |
+| SEC-020 | Partly (refusal now enforced on the server) | Now satisfied: the `/api/ask` server declines requests to reveal its instructions, private graded items, or other students' questions before any answer is looked up, proven by the test "the server declines requests to reveal the bot's instructions, private graded items, or other students' questions". Still missing: detection uses phrase patterns, so reworded attempts can get through; there is no 30-case Injection evaluation set; and the "never more than 10 consecutive words" leak check has nothing to run against until private graded items exist. |
 | SEC-021 | Partly | There is no chat index, stored conversation, or AI request; the route receives only the current question, but it has no student identity or isolation controls. |
 | SEC-022 | Partly | The browser limits the text box to 2,000 characters, but the API does not enforce that limit and has no per-student rate limits. |
 | SEC-023 | Not at all | There are no AI calls, spending tracking, budget cap, or provider-side limit. |
