@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 
+type CourseSource = { document: string; section: string };
+
 const quickPrompts = [
   "What's the difference between automation and augmentation?",
   "How should a team choose an AI use case?",
@@ -13,6 +15,7 @@ export default function Home() {
   const [question, setQuestion] = useState("");
   const [submittedQuestion, setSubmittedQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [source, setSource] = useState<CourseSource | null>(null);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,6 +35,7 @@ export default function Home() {
 
     setError("");
     setAnswer("");
+    setSource(null);
     setSubmittedQuestion(currentQuestion);
     setIsSubmitting(true);
 
@@ -41,13 +45,17 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: currentQuestion }),
       });
-      const result = (await response.json()) as { answer?: string };
+      const result = (await response.json()) as {
+        answer?: string;
+        source?: CourseSource | null;
+      };
 
       if (!response.ok || !result.answer) {
         throw new Error("The course bot could not answer just now.");
       }
 
       setAnswer(result.answer);
+      setSource(result.source ?? null);
     } catch {
       setError("We couldn't reach the course bot. Please try again.");
     } finally {
@@ -162,6 +170,11 @@ export default function Home() {
                   <section className="answer-card" aria-label="Answer" role="region">
                     <p>{answer}</p>
                   </section>
+                  {source && (
+                    <p className="answer-source" role="note" aria-label="Source">
+                      Source: {source.document}, {source.section}
+                    </p>
+                  )}
                 </>
               )}
             </div>

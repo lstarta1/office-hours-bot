@@ -26,5 +26,5 @@ export async function POST(request: Request) {
     );
   }
 
-  return Response.json({ answer: answerCourseQuestion(body.question) });
+  return Response.json(answerCourseQuestion(body.question));
 }

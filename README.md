@@ -1,3 +1,14 @@
+# Office Hours Bot (70-445 HW3, Starter Spec B)
+
+A demo course chatbot: a student types a name and a question and gets an answer from three sample course notes, with the source document and section shown under the answer (Story 2).
+
+## Non-goals for HW3
+
+- **Real payments.** This app takes no payments. Anywhere a spec asks to charge a card, it would use a "Simulated payment" button.
+- **Real authentication.** There is no sign-in provider. The student types a name into a text box, and the name stays in the browser.
+- **Persistent storage.** There is no database. Anything the server holds is kept in memory and **resets on every deploy**.
+- **Real course materials and AI.** Answers come from three hand-written sample notes, not the actual syllabus or slides, and no AI model is called.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Security spec audit
